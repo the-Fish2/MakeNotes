@@ -11,6 +11,7 @@ const App = (props) => {
 
   const appendNote = (event) => {
     event.preventDefault()
+    setCurrNoteImp(false)
     console.log('button clicked', event.target)
 
     const newNoteObj = {
