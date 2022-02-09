@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import axios from 'axios'
 import Note from './Components/Note'
+import noteService from './Services/notes'
 
 
 const App = () => {
@@ -12,18 +13,29 @@ const App = () => {
 
 
   const hook = () => {
-    console.log('effect')
-    axios
-      .get('http://localhost:3001/arrNotes')
-      .then(response => {
-        console.log('done')
-        setNotes(response.data)
-      })
+    noteService
+    .getAll()
+    .then(response => {
+      setNotes(response.data)
+    })
   }
 
-  useEffect(hook, [])
+  // const toggleImportanceOf = (id) => {
+  //   console.log('importance of ' + id + ' needs to be toggled')
+  // }
 
-  console.log('render', notes.length, 'notes')
+  // const toggleImportanceOf = id => {
+  //   const url = `http://localhost:3001/notes/${id}`
+  //   const note = notes.find(n => n.id === id)
+  //   const changedNote = { ...note, important: !note.important }
+  
+  //   axios.put(url, changedNote).then(response => {
+  //     setNotes(notes.map(note => note.id !== id ? note : response.data))
+  //   })
+  // }
+
+
+  useEffect(hook, [])
 
   const appendNote = (event) => {
     event.preventDefault()
@@ -36,13 +48,18 @@ const App = () => {
       important: currNoteImp
     }
 
-    setNotes(notes.concat(newNoteObj))
-    setNewNote('Enter...')
+    
+    noteService
+      .create(newNoteObj)
+      .then(response => {
+        setNotes(notes.concat(response.data))
+        setNewNote('Enter...')
+      })
+
   }
 
   const onNoteChange = (event) => {
     setNewNote(event.target.value)
-    console.log(event.target.value)
   }
 
   const changeImp = (event) => {
@@ -68,7 +85,11 @@ const App = () => {
 
         <ul> 
           {notesToShow.map(note => 
-            <Note key = {note.id} note={note} />
+            <Note 
+              key = {note.id} 
+              note={note}
+              // toggleImportance = {() => toggleImportanceOf(note.id)}
+           />
           )}
         </ul>
 
