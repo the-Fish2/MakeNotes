@@ -1,13 +1,29 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
+import axios from 'axios'
 import Note from './Components/Note'
 
 
-const App = (props) => {
+const App = () => {
 
-  const [notes, setNotes] = useState(props.notes)
+  const [notes, setNotes] = useState([])
   const [newNote, setNewNote] = useState('Enter...')
   const [currNoteImp, setCurrNoteImp] = useState(false)
   const [showAll, setShowAll] = useState(true)
+
+
+  const hook = () => {
+    console.log('effect')
+    axios
+      .get('http://localhost:3001/arrNotes')
+      .then(response => {
+        console.log('done')
+        setNotes(response.data)
+      })
+  }
+
+  useEffect(hook, [])
+
+  console.log('render', notes.length, 'notes')
 
   const appendNote = (event) => {
     event.preventDefault()
@@ -32,6 +48,7 @@ const App = (props) => {
   const changeImp = (event) => {
     event.preventDefault();
     setCurrNoteImp(!currNoteImp)
+    
   }
 
   const notesToShow = showAll 
@@ -40,6 +57,7 @@ const App = (props) => {
 
   return (
     <div> 
+        <title> Notes </title>
         <h1> Notes </h1>
 
         <div> 
