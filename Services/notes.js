@@ -2,18 +2,21 @@ import axios from 'axios'
 const baseUrl = 'http://localhost:3001/arrNotes'
 
 const getAll = () => {
-    return axios.get(baseUrl)
+    const request = axios.get(baseUrl)
+    return request.then(response => response.data)
 }
 
 const create = (newNoteObj) => {
-    return axios.post(baseUrl, newNoteObj)
+    const request = axios.post(baseUrl, newNoteObj)
+    return request.then(response => response.data)
 }
 
-// const update = (id) => {
-//     return axios.delete('${baseUrl}/${id}')
-// }
+const update = (id) => {
+    axios.delete(`${baseUrl}/${id}`)
+}
 
 export default {
-    getAll: getAll,
-    create: create
+    getAll,
+    create,
+    update
 }
