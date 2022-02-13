@@ -1,2 +1,5 @@
 # Notes
-Add notes, change them from important to not important, and change which notes can be seen
+Add notes, 
+Remove notes
+Change notes from important to not important,
+Change which notes can be seen based on importance.
