@@ -1,7 +1,7 @@
 # Notes
-Add notes, /n
-Remove notes /n
-Change notes from important to not important, /n
-Change which notes can be seen based on importance. /n
+Add notes, 
+Remove notes, 
+Change notes from important to not important, 
+Change which notes can be seen based on importance.
 
 Go to: 
