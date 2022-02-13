@@ -1,8 +1,6 @@
-import { render } from '@testing-library/react'
 import React, { useState, useEffect } from 'react'
 import Note from './Components/Note'
 import noteService from './Services/notes'
-import axios from 'axios'
 
 
 const App = () => {
@@ -44,9 +42,17 @@ const App = () => {
     event.preventDefault()
     setCurrNoteImp(false)
 
+    let currId = notes.length + 1
+
+    for (let note of notes) {
+      if (currId === note.id) {
+        currId = ++currId
+      }
+    }
+
     const newNoteObj = {
       content: newNote,
-      id: notes.length + 1,
+      id: currId,
       important: currNoteImp
     }
 
